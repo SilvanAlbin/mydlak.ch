@@ -107,10 +107,33 @@ main {
     letter-spacing: 0.3px;
 }
 
+.dots span {
+    animation: loading 1.4s infinite;
+    display: inline-block;
+}
+
+.dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loading {
+    0%, 60%, 100% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 0.2;
+    }
+}
+
 /* Contact Page */
 .contact-page {
     text-align: left;
     padding-top: 80px;
+    padding-left: 40px;
     flex: 1;
     display: flex;
     align-items: flex-start;
@@ -121,13 +144,17 @@ main {
 }
 
 .contact-details-large {
-    font-size: 3rem;
-    line-height: 1.5;
+    font-size: 3.5rem;
+    line-height: 1.2;
     color: #1a1a1a;
 }
 
-.contact-details-large p {
-    margin-bottom: 15px;
+.contact-group {
+    margin-bottom: 30px;
+}
+
+.contact-group p {
+    margin-bottom: -4px;
 }
 
 .contact-details-large a {
@@ -260,10 +287,15 @@ footer p {
     
     .contact-page {
         padding-top: 60px;
+        padding-left: 25px;
     }
     
     .contact-details-large {
-        font-size: 1.8rem;
+        font-size: 2rem;
+    }
+    
+    .contact-group {
+        margin-bottom: 25px;
     }
     
     .legal-page {

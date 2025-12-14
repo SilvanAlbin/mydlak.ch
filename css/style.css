@@ -1,0 +1,289 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    letter-spacing: 0.3px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    padding: 5px 0;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #1a1a1a;
+}
+
+/* Container */
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+}
+
+.tagline {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #666666;
+    letter-spacing: 0.3px;
+}
+
+/* Contact Page */
+.contact-page {
+    text-align: left;
+    padding-top: 80px;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-info-large {
+    width: 100%;
+}
+
+.contact-details-large {
+    font-size: 3rem;
+    line-height: 1.5;
+    color: #1a1a1a;
+}
+
+.contact-details-large p {
+    margin-bottom: 15px;
+}
+
+.contact-details-large a {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #cccccc;
+    transition: border-color 0.2s ease;
+}
+
+.contact-details-large a:hover {
+    border-bottom-color: #1a1a1a;
+}
+
+/* Legal Pages */
+.legal-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    text-align: left;
+}
+
+.legal-page h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin-bottom: 50px;
+    letter-spacing: -0.5px;
+}
+
+.legal-page h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.legal-page section {
+    margin-bottom: 30px;
+}
+
+.legal-page p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555555;
+    margin-bottom: 15px;
+}
+
+.legal-page a {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #cccccc;
+    transition: border-color 0.2s ease;
+}
+
+.legal-page a:hover {
+    border-bottom-color: #1a1a1a;
+}
+
+/* Footer */
+footer {
+    padding: 40px;
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: #999999;
+}
+
+.footer-extended {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+    padding: 30px 40px;
+}
+
+.footer-left span {
+    font-size: 0.9rem;
+    color: #999999;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-right a {
+    font-size: 0.9rem;
+    color: #999999;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-right a:hover,
+.footer-right a.active {
+    color: #1a1a1a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-content {
+        padding: 15px 25px;
+    }
+    
+    .nav-logo {
+        font-size: 0.9rem;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+    }
+    
+    .nav-menu a {
+        font-size: 0.9rem;
+    }
+    
+    main {
+        padding: 40px 25px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .contact-page {
+        padding-top: 60px;
+    }
+    
+    .contact-details-large {
+        font-size: 1.8rem;
+    }
+    
+    .legal-page {
+        padding: 60px 25px;
+    }
+    
+    .legal-page h1 {
+        font-size: 2rem;
+    }
+    
+    footer,
+    .footer-extended {
+        padding: 30px 25px;
+    }
+    
+    .footer-extended {
+        flex-wrap: wrap;
+    }
+    
+    .footer-right {
+        gap: 15px;
+    }
+}

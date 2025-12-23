@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mydlak Architektur</title>
-    <meta name="description" content="Mydlak Architektur - Gestaltung mit Vision und Präzision">
+    <title>Büro - Mydlak Architektur</title>
+    <meta name="description" content="Mydlak Architektur - Büro und Projekte">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="page-enter">
+<body>
     <nav class="main-nav">
         <div class="nav-content">
             <a href="index.html" class="nav-logo">Mydlak Architektur</a>
             <ul class="nav-menu">
-                <li><a href="buero.html">Büro</a></li>
+                <li><a href="buero.html" class="active">Büro</a></li>
                 <li><a href="#" id="kontakt-btn">Kontakt</a></li>
             </ul>
         </div>
@@ -84,19 +84,51 @@
     </div>
 
     <div class="container">
-        <main>
-            <section class="hero">
-                <h1>Mydlak Architektur</h1>
-                <p class="tagline"></p>
-            </section>
+        <main class="buero-page">
+            <div class="accordion-section">
+                <button class="accordion-btn" data-target="profil">
+                    <span class="accordion-icon">+</span>
+                    <span class="accordion-title">Profil</span>
+                </button>
+                <div class="accordion-content" id="profil">
+                    <div class="profile-content">
+                        <h3>Justyna Mydlak</h3>
+                        <p class="profile-subtitle">MSc Architektin USI AAM</p>
+                        <p class="profile-bio">
+                            Studium der Architektur und des Städtebaus an der Gdańsk University of Technology (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura, Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group (BIG) in New York, 2016–2018 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2024 Gründung der Mydlak Architektur GmbH.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-section">
+                <button class="accordion-btn" data-target="jobs">
+                    <span class="accordion-icon">+</span>
+                    <span class="accordion-title">Jobs</span>
+                </button>
+                <div class="accordion-content" id="jobs">
+                    <div class="jobs-content">
+                        <p>Aktuell haben wir keine offenen Stellen ausgeschrieben. 
+                        Wir freuen uns jedoch über Initiativbewerbungen von engagierten 
+                        Architekt:innen, die unsere Leidenschaft für durchdachte Gestaltung teilen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-section">
+                <button class="accordion-btn" id="home-btn">
+                    <span class="accordion-icon">+</span>
+                    <span class="accordion-title">Home</span>
+                </button>
+            </div>
         </main>
         
-    <footer class="footer-extended">
-        <div class="footer-right">
-            <a href="#" id="impressum-btn">Impressum</a>
-            <a href="#" id="datenschutz-btn">Datenschutz</a>
-        </div>
-    </footer>
+        <footer class="footer-extended">
+            <div class="footer-right">
+                <a href="#" id="impressum-btn">Impressum</a>
+                <a href="#" id="datenschutz-btn">Datenschutz</a>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -172,10 +204,33 @@
             datenschutzOverlay.classList.remove('active');
         });
 
-        // Remove page-enter class after animation
-        setTimeout(() => {
-            document.body.classList.remove('page-enter');
-        }, 600);
+        // Accordion Toggle
+        const accordionBtns = document.querySelectorAll('.accordion-btn');
+        
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const content = document.getElementById(targetId);
+                const isActive = content.classList.contains('active');
+                
+                if (isActive) {
+                    content.classList.remove('active');
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    content.classList.add('active');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // Home Button - Smooth slide-out transition
+        const homeBtn = document.getElementById('home-btn');
+        homeBtn.addEventListener('click', () => {
+            document.body.classList.add('page-exit');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        });
     </script>
 </body>
 </html>

@@ -821,6 +821,16 @@ body.page-exit .bottom-overlay {
     margin-bottom: 8px;
 }
 
+.profile-name-link {
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.profile-name-link:hover {
+    opacity: 0.6;
+}
+
 .profile-subtitle {
     font-size: 1rem;
     color: #999999;

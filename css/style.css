@@ -679,6 +679,17 @@ body.page-exit .bottom-overlay {
     border-color: #1a1a1a;
 }
 
+.privacy-link {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #cccccc;
+    transition: border-color 0.2s ease;
+}
+
+.privacy-link:hover {
+    border-color: #1a1a1a;
+}
+
 /* Responsive Bottom Panel */
 @media (max-width: 768px) {
     .bottom-panel-content {

@@ -48,7 +48,7 @@
                     <p>Mydlak Architektur GmbH<br>
                     Via Prau da Cuort 6<br>
                     7153 Falera<br>
-                    <a href="mailto:justyna@mydlak.ch">Email</a></p>
+                    <a href="mailto:info@mydlak.ch">Email</a></p>
                 </div>
                 <div class="bottom-section">
                     <h3>Entwicklung und Design</h3>
@@ -92,10 +92,10 @@
                 </button>
                 <div class="accordion-content" id="profil">
                     <div class="profile-content">
-                        <h3>Justyna Mydlak</h3>
+                        <h3><a href="mailto:justyna@mydlak.ch" class="profile-name-link">Justyna Mydlak</a></h3>
                         <p class="profile-subtitle">MSc Architektin USI AAM</p>
                         <p class="profile-bio">
-                            Studium der Architektur und des Städtebaus an der Gdańsk University of Technology (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura, Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group (BIG) in New York, 2016–2018 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2024 Gründung der Mydlak Architektur GmbH.
+                            Studium der Architektur und des Städtebaus an der Gdańsk University of Technology (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura, Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group (BIG) in New York, 2016 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2024 Gründung der Mydlak Architektur GmbH.
                         </p>
                     </div>
                 </div>
@@ -145,6 +145,20 @@
     </div>
 
     <script>
+        // Event tracking via virtual pageviews
+        function trackEvent(eventName) {
+            try {
+                if (typeof __cfBeacon !== 'undefined' && __cfBeacon.load) {
+                    __cfBeacon.load('pageview', {
+                        virtualPage: '/event/' + eventName
+                    });
+                }
+            } catch (e) {
+                // Silently fail if tracking is not available
+                console.log('Tracking not available:', e);
+            }
+        }
+
         // Contact Panel Toggle
         const kontaktBtn = document.getElementById('kontakt-btn');
         const closeBtn = document.getElementById('close-btn');
@@ -153,6 +167,7 @@
 
         kontaktBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            trackEvent('kontakt-opened-from-buero');
             contactPanel.classList.add('active');
             contactOverlay.classList.add('active');
         });
@@ -175,6 +190,7 @@
 
         impressumBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            trackEvent('impressum-opened-from-buero');
             setTimeout(() => {
                 window.scrollTo({ top: 0, behavior: 'instant' });
             }, 10);
@@ -200,6 +216,7 @@
 
         datenschutzBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            trackEvent('datenschutz-opened-from-buero');
             setTimeout(() => {
                 window.scrollTo({ top: 0, behavior: 'instant' });
             }, 10);
@@ -226,6 +243,11 @@
                 const content = document.getElementById(targetId);
                 const isActive = content.classList.contains('active');
                 
+                // Track accordion interaction
+                const accordionName = targetId.replace('-content', '');
+                const action = isActive ? 'closed' : 'opened';
+                trackEvent('accordion-' + accordionName + '-' + action);
+                
                 if (isActive) {
                     content.classList.remove('active');
                     btn.setAttribute('aria-expanded', 'false');
@@ -239,6 +261,7 @@
         // Home Button - Smooth slide-out transition
         const homeBtn = document.getElementById('home-btn');
         homeBtn.addEventListener('click', () => {
+            trackEvent('home-clicked-from-buero');
             document.body.classList.add('page-exit');
             setTimeout(() => {
                 window.location.href = 'index.html';

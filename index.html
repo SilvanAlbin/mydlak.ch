@@ -36,53 +36,6 @@
         </div>
     </div>
 
-    <!-- Impressum Bottom Panel -->
-    <div class="bottom-overlay" id="impressum-overlay"></div>
-    <div class="bottom-panel" id="impressum-panel">
-        <button class="close-btn-bottom" id="impressum-close">&times;</button>
-        <div class="bottom-panel-content">
-            <h2 class="bottom-panel-title">Impressum</h2>
-            <div class="bottom-sections-wrapper">
-                <div class="bottom-section">
-                    <h3>Inhalt</h3>
-                    <p>Mydlak Architektur GmbH<br>
-                    Via Prau da Cuort 6<br>
-                    7153 Falera<br>
-                    <a href="mailto:info@mydlak.ch">Email</a></p>
-                </div>
-                <div class="bottom-section">
-                    <h3>Entwicklung und Design</h3>
-                    <p>Silvan Albin</p>
-                </div>
-                <div class="bottom-section">
-                    <h3>Copyright</h3>
-                    <p>Das Copyright für sämtliche Inhalte dieser Website liegt bei Mydlak Architektur GmbH.</p>
-                </div>
-                <div class="bottom-section">
-                    <h3>Disclaimer</h3>
-                    <p>Alle Texte und Links wurden sorgfältig geprüft. Wir sind bemüht, richtige und vollständige Informationen bereitzustellen, übernehmen aber keinerlei Verantwortung oder Haftung dafür, dass die bereitgestellten Informationen richtig, vollständig oder aktuell sind.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Datenschutz Bottom Panel -->
-    <div class="bottom-overlay" id="datenschutz-overlay"></div>
-    <div class="bottom-panel" id="datenschutz-panel">
-        <button class="close-btn-bottom" id="datenschutz-close">&times;</button>
-        <div class="bottom-panel-content">
-            <h2 class="bottom-panel-title">Datenschutz</h2>
-            <div class="bottom-sections-wrapper">
-                <div class="bottom-section">
-                    <h3>Informationen zum Datenschutz</h3>
-                    <p>Diese Website verwendet Cloudflare Web Analytics zur anonymen Auswertung der Besucherzahlen. Dabei werden keine personenbezogenen Daten erfasst und keine Cookies gespeichert. Es werden lediglich anonymisierte, aggregierte Statistiken wie Seitenaufrufe, Besucherländer und verwendete Browser erhoben.<br><br>
-                    Cloudflare Web Analytics ist ein datenschutzfreundlicher Service, der die Privatsphäre der Besucher respektiert. Weitere Informationen finden Sie in der <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" class="privacy-link">Cloudflare Datenschutzerklärung</a>.<br><br>
-                    Kontaktanfragen per E-Mail werden nur zur Beantwortung gespeichert und anschliessend gelöscht.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         <main>
             <section class="hero">
@@ -93,8 +46,8 @@
         
     <footer class="footer-extended">
         <div class="footer-right">
-            <a href="#" id="impressum-btn">Impressum</a>
-            <a href="#" id="datenschutz-btn">Datenschutz</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
         </div>
     </footer>
     </div>
@@ -135,58 +88,6 @@
         contactOverlay.addEventListener('click', () => {
             contactPanel.classList.remove('active');
             contactOverlay.classList.remove('active');
-        });
-
-        // Impressum Panel Toggle
-        const impressumBtn = document.getElementById('impressum-btn');
-        const impressumClose = document.getElementById('impressum-close');
-        const impressumPanel = document.getElementById('impressum-panel');
-        const impressumOverlay = document.getElementById('impressum-overlay');
-
-        impressumBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            trackEvent('impressum-opened-from-index');
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-            }, 10);
-            impressumPanel.classList.add('active');
-            impressumOverlay.classList.add('active');
-        });
-
-        impressumClose.addEventListener('click', () => {
-            impressumPanel.classList.remove('active');
-            impressumOverlay.classList.remove('active');
-        });
-
-        impressumOverlay.addEventListener('click', () => {
-            impressumPanel.classList.remove('active');
-            impressumOverlay.classList.remove('active');
-        });
-
-        // Datenschutz Panel Toggle
-        const datenschutzBtn = document.getElementById('datenschutz-btn');
-        const datenschutzClose = document.getElementById('datenschutz-close');
-        const datenschutzPanel = document.getElementById('datenschutz-panel');
-        const datenschutzOverlay = document.getElementById('datenschutz-overlay');
-
-        datenschutzBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            trackEvent('datenschutz-opened-from-index');
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-            }, 10);
-            datenschutzPanel.classList.add('active');
-            datenschutzOverlay.classList.add('active');
-        });
-
-        datenschutzClose.addEventListener('click', () => {
-            datenschutzPanel.classList.remove('active');
-            datenschutzOverlay.classList.remove('active');
-        });
-
-        datenschutzOverlay.addEventListener('click', () => {
-            datenschutzPanel.classList.remove('active');
-            datenschutzOverlay.classList.remove('active');
         });
 
         // Remove page-enter class after animation

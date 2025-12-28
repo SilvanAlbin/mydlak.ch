@@ -30,6 +30,15 @@ body.page-exit {
     width: 100%;
 }
 
+body.page-exit-down {
+    transform: translateY(100%);
+    opacity: 0;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body.page-enter {
     animation: pageEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -897,5 +906,140 @@ body.page-exit .bottom-overlay {
     .profile-bio,
     .jobs-content p {
         font-size: 0.95rem;
+    }
+}
+
+/* Legal Pages */
+.legal-page-body {
+    background-color: #ffffff;
+}
+
+.legal-page-body.page-enter {
+    animation: pageEnterFromBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes pageEnterFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.legal-page-main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 40px 40px 40px;
+    min-height: calc(100vh - 120px);
+    position: relative;
+}
+
+.legal-close-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: #999999;
+    line-height: 1;
+    transition: color 0.2s ease;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.legal-close-btn:hover {
+    color: #1a1a1a;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #999999;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    margin-top: 60px;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover {
+    color: #1a1a1a;
+}
+
+.back-btn span {
+    font-size: 1.2rem;
+}
+
+.legal-content h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #1a1a1a;
+    margin-bottom: 50px;
+}
+
+.legal-section {
+    margin-bottom: 40px;
+}
+
+.legal-section h2 {
+    font-size: 0.75rem;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.legal-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #666666;
+    margin-bottom: 15px;
+}
+
+.legal-section p:last-child {
+    margin-bottom: 0;
+}
+
+.legal-section a {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #cccccc;
+    transition: border-color 0.2s ease;
+}
+
+.legal-section a:hover {
+    border-color: #1a1a1a;
+}
+
+.footer-extended a.active {
+    color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+    .legal-page-main {
+        padding: 60px 30px 80px 30px;
+    }
+
+    .legal-content h1 {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+
+    .back-btn {
+        margin-bottom: 30px;
     }
 }

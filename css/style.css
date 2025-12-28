@@ -320,11 +320,13 @@ footer p {
     padding: 30px 40px;
 }
 
+.footer-links,
 .footer-right {
     display: flex;
     gap: 25px;
 }
 
+.footer-links a,
 .footer-right a {
     font-size: 0.9rem;
     color: #999999;
@@ -332,6 +334,8 @@ footer p {
     transition: color 0.2s ease;
 }
 
+.footer-links a:hover,
+.footer-links a.active,
 .footer-right a:hover,
 .footer-right a.active {
     color: #1a1a1a;

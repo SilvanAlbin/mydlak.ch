@@ -11,9 +11,9 @@
 <body class="page-enter">
     <nav class="main-nav">
         <div class="nav-content">
-            <a href="index.html" class="nav-logo">Mydlak Architektur</a>
+            <a href="/" class="nav-logo">Mydlak Architektur</a>
             <ul class="nav-menu">
-                <li><a href="buero.html">Büro</a></li>
+                <li><a href="/buero/">Büro</a></li>
                 <li><a href="#" id="kontakt-btn">Kontakt</a></li>
             </ul>
         </div>
@@ -45,14 +45,20 @@
         </main>
         
     <footer class="footer-extended">
-        <div class="footer-right">
-            <a href="impressum.html">Impressum</a>
-            <a href="datenschutz.html">Datenschutz</a>
+        <div class="footer-links">
+            <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
         </div>
     </footer>
     </div>
 
     <script>
+        // Scroll to top if coming from legal page back button
+        if (sessionStorage.getItem('scrollToTop') === 'true') {
+            window.scrollTo(0, 0);
+            sessionStorage.removeItem('scrollToTop');
+        }
+
         // Event tracking via virtual pageviews
         function trackEvent(eventName) {
             try {

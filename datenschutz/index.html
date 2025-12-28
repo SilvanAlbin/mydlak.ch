@@ -6,14 +6,14 @@
     <title>Datenschutz – Mydlak Architektur</title>
     <meta name="description" content="Datenschutzerklärung der Mydlak Architektur GmbH. Informationen zum Umgang mit personenbezogenen Daten.">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="page-enter legal-page-body">
     <nav class="main-nav">
         <div class="nav-content">
-            <a href="index.html" class="nav-logo">Mydlak Architektur</a>
+            <a href="/" class="nav-logo">Mydlak Architektur</a>
             <ul class="nav-menu">
-                <li><a href="buero.html">Büro</a></li>
+                <li><a href="/buero/">Büro</a></li>
                 <li><a href="#" id="kontakt-btn">Kontakt</a></li>
             </ul>
         </div>
@@ -73,14 +73,20 @@
         </main>
         
         <footer class="footer-extended">
-            <div class="footer-right">
-                <a href="impressum.html">Impressum</a>
-                <a href="datenschutz.html" class="active">Datenschutz</a>
+            <div class="footer-links">
+                <a href="/impressum/">Impressum</a>
+                <a href="/datenschutz/" class="active">Datenschutz</a>
             </div>
         </footer>
     </div>
 
     <script>
+        // Scroll to top if coming from legal page back button
+        if (sessionStorage.getItem('scrollToTop') === 'true') {
+            window.scrollTo(0, 0);
+            sessionStorage.removeItem('scrollToTop');
+        }
+
         // Event tracking via virtual pageviews
         function trackEvent(eventName) {
             try {
@@ -123,14 +129,23 @@
         
         const closeAndGoBack = () => {
             trackEvent('back-from-datenschutz');
+            sessionStorage.setItem('scrollToTop', 'true');
             document.body.classList.add('page-exit-down');
             setTimeout(() => {
                 window.history.back();
             }, 500);
         };
         
+        const closeAndGoHome = () => {
+            trackEvent('close-from-datenschutz');
+            document.body.classList.add('page-exit-down');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 500);
+        };
+        
         backBtn.addEventListener('click', closeAndGoBack);
-        closeBtnLegal.addEventListener('click', closeAndGoBack);
+        closeBtnLegal.addEventListener('click', closeAndGoHome);
 
         // Remove page-enter class after animation
         setTimeout(() => {

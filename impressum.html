@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mydlak Architektur</title>
-    <meta name="description" content="Mydlak Architektur - Gestaltung mit Vision und Präzision">
+    <title>Impressum – Mydlak Architektur</title>
+    <meta name="description" content="Impressum der Mydlak Architektur GmbH, Via Prau da Cuort 6, 7153 Falera, Graubünden">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="page-enter">
+<body class="page-enter legal-page-body">
     <nav class="main-nav">
         <div class="nav-content">
             <a href="index.html" class="nav-logo">Mydlak Architektur</a>
@@ -37,19 +37,48 @@
     </div>
 
     <div class="container">
-        <main>
-            <section class="hero">
-                <h1>Mydlak Architektur</h1>
-                <p class="tagline"></p>
-            </section>
+        <main class="legal-page-main">
+            <button class="legal-close-btn" id="close-btn-legal">&times;</button>
+            
+            <article class="legal-content">
+                <h1>Impressum</h1>
+                
+                <section class="legal-section">
+                    <h2>Inhalt</h2>
+                    <p>Mydlak Architektur GmbH<br>
+                    Via Prau da Cuort 6<br>
+                    7153 Falera<br>
+                    Schweiz<br>
+                    <a href="mailto:info@mydlak.ch">info@mydlak.ch</a></p>
+                </section>
+
+                <section class="legal-section">
+                    <h2>Entwicklung und Design</h2>
+                    <p>Silvan Albin</p>
+                </section>
+
+                <section class="legal-section">
+                    <h2>Copyright</h2>
+                    <p>Das Copyright für sämtliche Inhalte dieser Website liegt bei Mydlak Architektur GmbH.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h2>Disclaimer</h2>
+                    <p>Alle Texte und Links wurden sorgfältig geprüft. Wir sind bemüht, richtige und vollständige Informationen bereitzustellen, übernehmen aber keinerlei Verantwortung oder Haftung dafür, dass die bereitgestellten Informationen richtig, vollständig oder aktuell sind.</p>
+                </section>
+            </article>
+            
+            <button class="back-btn" id="back-btn">
+                <span>←</span> Zurück
+            </button>
         </main>
         
-    <footer class="footer-extended">
-        <div class="footer-right">
-            <a href="impressum.html">Impressum</a>
-            <a href="datenschutz.html">Datenschutz</a>
-        </div>
-    </footer>
+        <footer class="footer-extended">
+            <div class="footer-right">
+                <a href="impressum.html" class="active">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -62,7 +91,6 @@
                     });
                 }
             } catch (e) {
-                // Silently fail if tracking is not available
                 console.log('Tracking not available:', e);
             }
         }
@@ -75,7 +103,7 @@
 
         kontaktBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            trackEvent('kontakt-opened-from-index');
+            trackEvent('kontakt-opened-from-impressum');
             contactPanel.classList.add('active');
             contactOverlay.classList.add('active');
         });
@@ -89,6 +117,21 @@
             contactPanel.classList.remove('active');
             contactOverlay.classList.remove('active');
         });
+
+        // Back button and close button with slide-down transition
+        const backBtn = document.getElementById('back-btn');
+        const closeBtnLegal = document.getElementById('close-btn-legal');
+        
+        const closeAndGoBack = () => {
+            trackEvent('back-from-impressum');
+            document.body.classList.add('page-exit-down');
+            setTimeout(() => {
+                window.history.back();
+            }, 500);
+        };
+        
+        backBtn.addEventListener('click', closeAndGoBack);
+        closeBtnLegal.addEventListener('click', closeAndGoBack);
 
         // Remove page-enter class after animation
         setTimeout(() => {

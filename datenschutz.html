@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutz – Mydlak Architektur</title>
+    <meta name="description" content="Datenschutzerklärung der Mydlak Architektur GmbH. Informationen zum Umgang mit personenbezogenen Daten.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-enter legal-page-body">
+    <nav class="main-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">Mydlak Architektur</a>
+            <ul class="nav-menu">
+                <li><a href="buero.html">Büro</a></li>
+                <li><a href="#" id="kontakt-btn">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Side Panel -->
+    <div class="contact-overlay" id="contact-overlay"></div>
+    <div class="contact-panel" id="contact-panel">
+        <button class="close-btn" id="close-btn">&times;</button>
+        <div class="contact-panel-content">
+            <h2>Kontakt</h2>
+            <div class="contact-info-simple">
+                <p>Justyna Mydlak<br>
+                MSc Architektin USI AAM<br>
+                Mydlak Architektur GmbH<br>
+                Via Prau da Cuort 6<br>
+                7153 Falera<br>
+                <a href="mailto:justyna@mydlak.ch">Email</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <main class="legal-page-main">
+            <button class="legal-close-btn" id="close-btn-legal">&times;</button>
+            
+            <article class="legal-content">
+                <h1>Datenschutz</h1>
+                
+                <section class="legal-section">
+                    <h2>Informationen zum Datenschutz</h2>
+                    <p>Diese Website verwendet Cloudflare Web Analytics zur anonymen Auswertung der Besucherzahlen. Dabei werden keine personenbezogenen Daten erfasst und keine Cookies gespeichert. Es werden lediglich anonymisierte, aggregierte Statistiken wie Seitenaufrufe, Besucherländer und verwendete Browser erhoben.</p>
+                    
+                    <p>Cloudflare Web Analytics ist ein datenschutzfreundlicher Service, der die Privatsphäre der Besucher respektiert. Weitere Informationen finden Sie in der <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" class="privacy-link">Cloudflare Datenschutzerklärung</a>.</p>
+                    
+                    <p>Kontaktanfragen per E-Mail werden nur zur Beantwortung gespeichert und anschliessend gelöscht.</p>
+                </section>
+
+                <section class="legal-section">
+                    <h2>Verantwortliche Stelle</h2>
+                    <p>Mydlak Architektur GmbH<br>
+                    Via Prau da Cuort 6<br>
+                    7153 Falera<br>
+                    Schweiz<br>
+                    <a href="mailto:justyna@mydlak.ch">justyna@mydlak.ch</a></p>
+                </section>
+
+                <section class="legal-section">
+                    <h2>Auskunftsrecht</h2>
+                    <p>Sie haben jederzeit das Recht auf Auskunft über die bei uns über Sie gespeicherten personenbezogenen Daten. Für Auskünfte wenden Sie sich bitte per E-Mail an <a href="mailto:justyna@mydlak.ch">justyna@mydlak.ch</a>.</p>
+                </section>
+            </article>
+            
+            <button class="back-btn" id="back-btn">
+                <span>←</span> Zurück
+            </button>
+        </main>
+        
+        <footer class="footer-extended">
+            <div class="footer-right">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html" class="active">Datenschutz</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Event tracking via virtual pageviews
+        function trackEvent(eventName) {
+            try {
+                if (typeof __cfBeacon !== 'undefined' && __cfBeacon.load) {
+                    __cfBeacon.load('pageview', {
+                        virtualPage: '/event/' + eventName
+                    });
+                }
+            } catch (e) {
+                console.log('Tracking not available:', e);
+            }
+        }
+
+        // Contact Panel Toggle
+        const kontaktBtn = document.getElementById('kontakt-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const contactPanel = document.getElementById('contact-panel');
+        const contactOverlay = document.getElementById('contact-overlay');
+
+        kontaktBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            trackEvent('kontakt-opened-from-datenschutz');
+            contactPanel.classList.add('active');
+            contactOverlay.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            contactPanel.classList.remove('active');
+            contactOverlay.classList.remove('active');
+        });
+
+        contactOverlay.addEventListener('click', () => {
+            contactPanel.classList.remove('active');
+            contactOverlay.classList.remove('active');
+        });
+
+        // Back button and close button with slide-down transition
+        const backBtn = document.getElementById('back-btn');
+        const closeBtnLegal = document.getElementById('close-btn-legal');
+        
+        const closeAndGoBack = () => {
+            trackEvent('back-from-datenschutz');
+            document.body.classList.add('page-exit-down');
+            setTimeout(() => {
+                window.history.back();
+            }, 500);
+        };
+        
+        backBtn.addEventListener('click', closeAndGoBack);
+        closeBtnLegal.addEventListener('click', closeAndGoBack);
+
+        // Remove page-enter class after animation
+        setTimeout(() => {
+            document.body.classList.remove('page-enter');
+        }, 600);
+    </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "25c2069b2f03483c8a41850f2fc04774"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+</body>
+</html>

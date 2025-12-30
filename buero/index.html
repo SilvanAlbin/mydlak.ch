@@ -126,6 +126,7 @@
 
         kontaktBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            if (typeof umami !== 'undefined') umami.track('kontakt-opened');
             trackEvent('kontakt-opened-from-buero');
             contactPanel.classList.add('active');
             contactOverlay.classList.add('active');

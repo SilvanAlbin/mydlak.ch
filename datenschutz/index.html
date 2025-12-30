@@ -102,6 +102,7 @@
 
         kontaktBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            if (typeof umami !== 'undefined') umami.track('kontakt-opened');
             trackEvent('kontakt-opened-from-datenschutz');
             contactPanel.classList.add('active');
             contactOverlay.classList.add('active');

@@ -918,7 +918,7 @@ body.page-exit .bottom-overlay {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid #1a1a1a;
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;

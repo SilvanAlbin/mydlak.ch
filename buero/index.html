@@ -86,7 +86,7 @@
                     <span class="accordion-title">Jobs</span>
                 </button>
                 <div class="accordion-content" id="jobs">
-                    <div class="jobs-content">
+                    <div class="jobs-content" id="jobs-container">
                         <p>Aktuell haben wir keine offenen Stellen ausgeschrieben.
                             Wir freuen uns jedoch über Initiativbewerbungen von engagierten
                             Architekt:innen, die unsere Leidenschaft für durchdachte Gestaltung teilen.</p>
@@ -166,21 +166,22 @@
             return (data && Array.isArray(data.items) && data.items.length) ? data.items[0] : null;
         }
 
+        async function fetchAllRecords(collection) {
+            const url = `${PB_BASE}/api/collections/${collection}/records?sort=-created`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Failed to fetch ${collection}`);
+            const data = await res.json();
+            return (data && Array.isArray(data.items)) ? data.items : [];
+        }
+
         // Profile
         (function initProfile() {
             const el = document.getElementById('profile-content');
             if (!el) return;
-            const fallback = `
-                <h3><a href="mailto:justyna@mydlak.ch" class="profile-name-link">Justyna Mydlak</a></h3>
-                <p class="profile-subtitle">MSc Architektin USI AAM</p>
-                <p class="profile-bio">Studium der Architektur und des Städtebaus an der Gdańsk University of Technology (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura, Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group (BIG) in New York, 2016 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2025 Gründung der Mydlak Architektur GmbH.</p>`;
 
             fetchCollectionFirst('profile')
                 .then(rec => {
-                    if (!rec) {
-                        if (!el.innerHTML.trim()) el.innerHTML = fallback;
-                        return;
-                    }
+                    if (!rec) return;
                     if (rec.html) {
                         el.innerHTML = rec.html;
                         return;
@@ -197,14 +198,19 @@
                     if (fileField && Array.isArray(fileField) && fileField.length > 0) {
                         const filename = fileField[0];
                         const imageUrl = `${PB_BASE}/api/files/profile/${rec.id}/image/${encodeURIComponent(filename)}`;
-                        imageHtml = `\n                        <div class="profile-image-wrap">\n                            <img class="profile-image" src="${imageUrl}" alt="${name}">\n                        </div>`;
+                        imageHtml = `
+                        <div class="profile-image-wrap">
+                            <img class="profile-image" src="${imageUrl}" alt="${name}">
+                        </div>`;
                     }
 
-                    el.innerHTML = `${imageHtml}\n                        <h3><a href="mailto:${email}" class="profile-name-link">${name}</a></h3>\n                        <p class="profile-subtitle">${title}</p>\n                        <p class="profile-bio">${bio}</p>`;
+                    el.innerHTML = `${imageHtml}
+                        <h3><a href="mailto:${email}" class="profile-name-link">${name}</a></h3>
+                        <p class="profile-subtitle">${title}</p>
+                        <p class="profile-bio">${bio}</p>`;
                 })
                 .catch(err => {
                     console.log('profile load error', err);
-                    if (!el.innerHTML.trim()) el.innerHTML = fallback;
                 });
         })();
 
@@ -233,6 +239,52 @@
                 })
                 .catch(err => {
                     console.log('contact load error', err);
+                });
+        })();
+
+        // Jobs
+        (function initJobs() {
+            const el = document.getElementById('jobs-container');
+            if (!el) return;
+
+            fetchAllRecords('jobs')
+                .then(items => {
+                    const activeJobs = items.filter(j => j.active !== false);
+                    if (activeJobs.length === 0) return;
+
+                    const plural = activeJobs.length > 1;
+                    let html = `<p class="jobs-intro">Wir suchen aktuell Verstärkung für folgende ${plural ? 'Positionen' : 'Position'}:</p>`;
+
+                    activeJobs.forEach(job => {
+                        const title = job.title || 'Architekt:in';
+                        const desc = job.description || '';
+                        const email = job.email || 'justyna@mydlak.ch';
+                        const subject = encodeURIComponent(`Bewerbung: ${title}`);
+
+                        let fileLink = '';
+                        if (job.pdf) {
+                            const fileUrl = `${PB_BASE}/api/files/jobs/${job.id}/${job.pdf}`;
+                            fileLink = `<a href="${fileUrl}" target="_blank" class="job-pdf-link">Inserat (PDF) <span>↓</span></a>`;
+                        }
+
+                        html += `
+                            <div class="job-item">
+                                <h4 class="job-title">${title}</h4>
+                                <div class="job-description">${desc}</div>
+                                <div class="job-actions">
+                                    ${fileLink}
+                                    <a href="mailto:${email}?subject=${subject}" class="job-apply-link">Bewerben <span>↗</span></a>
+                                </div>
+                            </div>`;
+                    });
+                    html += `
+                        <div class="jobs-footer">
+                            <p>Wir freuen uns auch jederzeit über Initiativbewerbungen von engagierten Architekt:innen, die unsere Leidenschaft für durchdachte Gestaltung teilen.</p>
+                        </div>`;
+                    el.innerHTML = html;
+                })
+                .catch(err => {
+                    console.log('jobs load error', err);
                 });
         })();
 

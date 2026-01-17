@@ -167,7 +167,7 @@
         }
 
         async function fetchAllRecords(collection) {
-            const url = `${PB_BASE}/api/collections/${collection}/records?sort=-created`;
+            const url = `${PB_BASE}/api/collections/${collection}/records?sort=-updated`;
             const res = await fetch(url);
             if (!res.ok) throw new Error(`Failed to fetch ${collection}`);
             const data = await res.json();

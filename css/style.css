@@ -1098,9 +1098,9 @@ body.page-exit .bottom-overlay {
 }
 
 .legal-page-main {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 80px 40px 40px 40px;
+    padding: 120px 40px 80px 40px;
     min-height: calc(100vh - 120px);
     position: relative;
 }
@@ -1152,30 +1152,69 @@ body.page-exit .bottom-overlay {
 }
 
 .legal-content h1 {
-    font-size: 2.5rem;
-    font-weight: 300;
+    font-size: 3.5rem;
+    font-weight: 200;
     color: #1a1a1a;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
+    letter-spacing: -1px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter .legal-content h1 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
 }
 
 .legal-section {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter .legal-section {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered entry for legal sections */
+.page-enter .legal-section:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.page-enter .legal-section:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.page-enter .legal-section:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.page-enter .legal-section:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.page-enter .legal-section:nth-child(6) {
+    transition-delay: 0.6s;
 }
 
 .legal-section h2 {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #999999;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     font-weight: 400;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .legal-section p {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #666666;
-    margin-bottom: 15px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444444;
+    margin-bottom: 20px;
 }
 
 .legal-section p:last-child {
@@ -1185,12 +1224,28 @@ body.page-exit .bottom-overlay {
 .legal-section a {
     color: #1a1a1a;
     text-decoration: none;
-    border-bottom: 1px solid #cccccc;
-    transition: border-color 0.2s ease;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
+}
+
+.legal-section a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #1a1a1a;
+    transition: width 0.5s ease;
+}
+
+.legal-section a:hover::after {
+    width: 100%;
 }
 
 .legal-section a:hover {
-    border-color: #1a1a1a;
+    color: #666666;
 }
 
 .footer-extended a.active {

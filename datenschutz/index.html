@@ -151,10 +151,12 @@
         backBtn.addEventListener('click', closeAndGoBack);
         closeBtnLegal.addEventListener('click', closeAndGoHome);
 
-        // Remove page-enter class after animation
+        // Remove page-enter class after animation (disabled to keep entry states)
+        /*
         setTimeout(() => {
             document.body.classList.remove('page-enter');
         }, 600);
+        */
 
         // Pocketbase helpers & rendering (contact)
         const PB_BASE = 'https://mydlak-pocketbase.fly.dev';
@@ -166,6 +168,26 @@
             const data = await res.json();
             return (data && Array.isArray(data.items) && data.items.length) ? data.items[0] : null;
         }
+
+        (function initLegalContent() {
+            const el = document.querySelector('.legal-content');
+            if (!el) return;
+
+            // Fetch by slug
+            const slug = 'datenschutz';
+            const url = `${PB_BASE}/api/collections/legal/records?filter=(slug='${slug}')&perPage=1`;
+
+            fetch(url)
+                .then(res => res.ok ? res.json() : null)
+                .then(data => {
+                    const rec = (data && data.items && data.items.length) ? data.items[0] : null;
+                    if (!rec || !rec.content) return;
+
+                    const title = rec.title || 'Datenschutz';
+                    el.innerHTML = `<h1>${title}</h1>${rec.content}`;
+                })
+                .catch(err => console.log('legal load error', err));
+        })();
 
         (function initContact() {
             const el = document.getElementById('contact-content');

@@ -918,22 +918,42 @@ body.page-exit .bottom-overlay {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-bottom: 1px solid #1a1a1a;
-    transition: all 0.2s ease;
+    padding-bottom: 2px;
+    position: relative;
+    transition: color 0.2s ease;
     display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 
+.job-actions a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #1a1a1a;
+    transition: width 0.5s ease;
+}
+
+.job-actions a:hover::after {
+    width: 100%;
+}
+
 .job-actions a:hover {
-    border-color: #1a1a1a;
-    opacity: 0.6;
+    color: #666666;
 }
 
 .job-actions a span {
     font-size: 1.1rem;
     line-height: 1;
     color: #999999;
+    transition: color 0.2s ease;
+}
+
+.job-actions a:hover span {
+    color: #666666;
 }
 
 .jobs-intro {

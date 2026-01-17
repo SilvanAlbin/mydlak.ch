@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
     <meta name="description" content="Mydlak Architektur - Büro und Projekte">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://umami-ten-liart.vercel.app/script.js" data-website-id="863abb7a-77c4-4a76-b779-dff207e1e91d"></script>
+    <script src="https://umami-ten-liart.vercel.app/script.js"
+        data-website-id="863abb7a-77c4-4a76-b779-dff207e1e91d"></script>
 </head>
+
 <body>
     <nav class="main-nav">
         <div class="nav-content">
@@ -24,15 +27,16 @@
     <div class="contact-overlay" id="contact-overlay"></div>
     <div class="contact-panel" id="contact-panel">
         <button class="close-btn" id="close-btn">&times;</button>
-        <div class="contact-panel-content">
+        <div class="contact-panel-content" id="contact-content">
             <h2>Kontakt</h2>
             <div class="contact-info-simple">
                 <p>Justyna Mydlak<br>
-                MSc Architektin USI AAM<br>
-                Mydlak Architektur GmbH<br>
-                Via Prau da Cuort 6<br>
-                7153 Falera<br>
-                <a href="mailto:justyna@mydlak.ch">Email</a></p>
+                    MSc Architektin USI AAM<br>
+                    Mydlak Architektur GmbH<br>
+                    Via Prau da Cuort 6<br>
+                    7153 Falera<br>
+                    <a href="mailto:justyna@mydlak.ch">Email</a>
+                </p>
             </div>
         </div>
     </div>
@@ -45,11 +49,17 @@
                     <span class="accordion-title">Profil</span>
                 </button>
                 <div class="accordion-content" id="profil">
-                    <div class="profile-content">
+                    <div class="profile-content" id="profile-content">
                         <h3><a href="mailto:justyna@mydlak.ch" class="profile-name-link">Justyna Mydlak</a></h3>
                         <p class="profile-subtitle">MSc Architektin USI AAM</p>
                         <p class="profile-bio">
-                            Studium der Architektur und des Städtebaus an der Gdańsk University of Technology (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura, Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group (BIG) in New York, 2016 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2025 Gründung der Mydlak Architektur GmbH.
+                            Studium der Architektur und des Städtebaus an der Gdańsk University of Technology
+                            (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura,
+                            Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group
+                            (BIG) in New York, 2016 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade
+                            Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle
+                            architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2025 Gründung der
+                            Mydlak Architektur GmbH.
                         </p>
                     </div>
                 </div>
@@ -62,7 +72,9 @@
                 </button>
                 <div class="accordion-content" id="taetigkeit">
                     <div class="jobs-content">
-                        <p>Wir entwickeln massgeschneiderte Architekturlösungen – vom ersten Entwurf über die detaillierte Planung bis zur erfolgreichen Projektumsetzung. Mit langjähriger Erfahrung begleiten wir Sie durch den gesamten Prozess und setzen Ihre Vision in Realität um.</p>
+                        <p>Wir entwickeln massgeschneiderte Architekturlösungen – vom ersten Entwurf über die
+                            detaillierte Planung bis zur erfolgreichen Projektumsetzung. Mit langjähriger Erfahrung
+                            begleiten wir Sie durch den gesamten Prozess und setzen Ihre Vision in Realität um.</p>
                         <p></p>
                     </div>
                 </div>
@@ -75,9 +87,9 @@
                 </button>
                 <div class="accordion-content" id="jobs">
                     <div class="jobs-content">
-                        <p>Aktuell haben wir keine offenen Stellen ausgeschrieben. 
-                        Wir freuen uns jedoch über Initiativbewerbungen von engagierten 
-                        Architekt:innen, die unsere Leidenschaft für durchdachte Gestaltung teilen.</p>
+                        <p>Aktuell haben wir keine offenen Stellen ausgeschrieben.
+                            Wir freuen uns jedoch über Initiativbewerbungen von engagierten
+                            Architekt:innen, die unsere Leidenschaft für durchdachte Gestaltung teilen.</p>
                     </div>
                 </div>
             </div>
@@ -89,7 +101,7 @@
                 </button>
             </div>
         </main>
-        
+
         <footer class="footer-extended">
             <div class="footer-links">
                 <a href="/impressum/">Impressum</a>
@@ -143,20 +155,101 @@
             contactOverlay.classList.remove('active');
         });
 
+        // Pocketbase helpers & rendering (profile + contact)
+        const PB_BASE = 'https://mydlak-pocketbase.fly.dev';
+
+        async function fetchCollectionFirst(collection) {
+            const url = `${PB_BASE}/api/collections/${collection}/records?perPage=1`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Failed to fetch ${collection}`);
+            const data = await res.json();
+            return (data && Array.isArray(data.items) && data.items.length) ? data.items[0] : null;
+        }
+
+        // Profile
+        (function initProfile() {
+            const el = document.getElementById('profile-content');
+            if (!el) return;
+            const fallback = `
+                <h3><a href="mailto:justyna@mydlak.ch" class="profile-name-link">Justyna Mydlak</a></h3>
+                <p class="profile-subtitle">MSc Architektin USI AAM</p>
+                <p class="profile-bio">Studium der Architektur und des Städtebaus an der Gdańsk University of Technology (2011–2015). 2016–2018 Masterstudium der Architektur an der Accademia di architettura, Università della Svizzera italiana in Mendrisio. 2015–2016 Tätigkeit bei Bjarke Ingels Group (BIG) in New York, 2016 bei BIG in Kopenhagen. 2018–2021 Architektin bei Mathis Kamplade Architekten, 2021–2023 bei Büro Krucker Architekten, seit 2023 bei spillmann echsle architekten ag, seit 2024 als Project Lead. Seit 2023 selbständig tätig, 2025 Gründung der Mydlak Architektur GmbH.</p>`;
+
+            fetchCollectionFirst('profile')
+                .then(rec => {
+                    if (!rec) {
+                        if (!el.innerHTML.trim()) el.innerHTML = fallback;
+                        return;
+                    }
+                    if (rec.html) {
+                        el.innerHTML = rec.html;
+                        return;
+                    }
+
+                    const name = rec.name || 'Justyna Mydlak';
+                    const title = rec.title || 'MSc Architektin USI AAM';
+                    const bio = rec.bio || '';
+                    const email = rec.email || 'justyna@mydlak.ch';
+
+                    // file fields in Pocketbase are arrays of filenames under record[field]
+                    const fileField = rec.image || rec.avatar || rec.photo || null;
+                    let imageHtml = '';
+                    if (fileField && Array.isArray(fileField) && fileField.length > 0) {
+                        const filename = fileField[0];
+                        const imageUrl = `${PB_BASE}/api/files/profile/${rec.id}/image/${encodeURIComponent(filename)}`;
+                        imageHtml = `\n                        <div class="profile-image-wrap">\n                            <img class="profile-image" src="${imageUrl}" alt="${name}">\n                        </div>`;
+                    }
+
+                    el.innerHTML = `${imageHtml}\n                        <h3><a href="mailto:${email}" class="profile-name-link">${name}</a></h3>\n                        <p class="profile-subtitle">${title}</p>\n                        <p class="profile-bio">${bio}</p>`;
+                })
+                .catch(err => {
+                    console.log('profile load error', err);
+                    if (!el.innerHTML.trim()) el.innerHTML = fallback;
+                });
+        })();
+
+        // Contact (update from Pocketbase if available)
+        (function initContact() {
+            const el = document.getElementById('contact-content');
+            if (!el) return;
+
+            fetchCollectionFirst('contact')
+                .then(rec => {
+                    if (!rec) return;
+                    if (rec.html) {
+                        el.innerHTML = rec.html;
+                        return;
+                    }
+                    const name = rec.name || 'Justyna Mydlak';
+                    const title = rec.title || 'MSc Architektin USI AAM';
+                    const company = rec.company || 'Mydlak Architektur GmbH';
+                    const address = rec.address || 'Via Prau da Cuort 6<br>7153 Falera';
+                    const email = rec.email || 'justyna@mydlak.ch';
+                    el.innerHTML = `
+                        <h2>Kontakt</h2>
+                        <div class="contact-info-simple">
+                            <p>${name}<br>${title}<br>${company}<br>${address}<br><a href="mailto:${email}">Email</a></p>
+                        </div>`;
+                })
+                .catch(err => {
+                    console.log('contact load error', err);
+                });
+        })();
+
         // Accordion Toggle
         const accordionBtns = document.querySelectorAll('.accordion-btn');
-        
+
         accordionBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target');
                 const content = document.getElementById(targetId);
                 const isActive = content.classList.contains('active');
-                
+
                 // Track accordion interaction
                 const accordionName = targetId.replace('-content', '');
                 const action = isActive ? 'closed' : 'opened';
                 trackEvent('accordion-' + accordionName + '-' + action);
-                
+
                 if (isActive) {
                     content.classList.remove('active');
                     btn.setAttribute('aria-expanded', 'false');
@@ -178,7 +271,9 @@
         });
     </script>
 
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "25c2069b2f03483c8a41850f2fc04774"}'></script>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "25c2069b2f03483c8a41850f2fc04774"}'></script>
     <!-- End Cloudflare Web Analytics -->
 </body>
+
 </html>

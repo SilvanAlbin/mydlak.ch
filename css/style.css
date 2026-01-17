@@ -948,7 +948,7 @@ body.page-exit .bottom-overlay {
 .job-actions a span {
     font-size: 1.1rem;
     line-height: 1;
-    color: #999999;
+    color: #1a1a1a;
     transition: color 0.2s ease;
 }
 

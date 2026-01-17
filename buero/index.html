@@ -294,6 +294,8 @@
         accordionBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target');
+                if (!targetId) return; // Skip if no target (e.g. Home button)
+
                 const content = document.getElementById(targetId);
                 const isActive = content.classList.contains('active');
 
@@ -318,7 +320,7 @@
             trackEvent('home-clicked-from-buero');
             document.body.classList.add('page-exit');
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = '/';
             }, 500);
         });
     </script>
